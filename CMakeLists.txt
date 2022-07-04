@@ -2,6 +2,8 @@
 # Distributed under the Boost Software License, Version 1.0.
 # See accompanying file LICENSE_1_0.txt or copy at https://www.boost.org/LICENSE_1_0.txt
 
+if(NOT DEFINED IDF_TARGET)
+
 cmake_minimum_required( VERSION 3.5...3.20 )
 
 project( boost_intrusive VERSION "${BOOST_SUPERPROJECT_VERSION}" LANGUAGES CXX )
@@ -20,3 +22,20 @@ target_link_libraries( boost_intrusive
         Boost::move
         Boost::static_assert
 )
+
+else()
+
+idf_component_register(
+    INCLUDE_DIRS
+        include
+    REQUIRES
+        boost_assert
+        boost_config
+        boost_container_hash
+        boost_core
+        boost_move
+        boost_static_assert
+)
+
+endif()
+
